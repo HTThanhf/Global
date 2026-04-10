@@ -821,7 +821,7 @@ export class Game {
         const deathEl = document.getElementById('hudDeaths');
         
         if (timeEl) timeEl.textContent = `Time: ${mins}:${secs}`;
-        if (coinEl) coinEl.textContent = `Coins: ${this.player?.coins || 0}`;
+        if (coinEl) coinEl.textContent = `Coins: ${(this.player && this.player.coins) || 0}`;
         if (deathEl) deathEl.textContent = `Deaths: ${this.deaths}`;
     }
     
@@ -832,12 +832,14 @@ export class Game {
         this.particles.emitExplosion(this.player.x + 12, this.player.y + 16, '#FF6B6B');
         this.camera.shake(10);
         
-        document.getElementById('deathScreen')?.classList.remove('hidden');
+        const deathScreen = document.getElementById('deathScreen');
+        if (deathScreen) deathScreen.classList.remove('hidden');
         this.state = 'DEAD';
     }
     
     respawn() {
-        document.getElementById('deathScreen')?.classList.add('hidden');
+        const deathScreen = document.getElementById('deathScreen');
+        if (deathScreen) deathScreen.classList.add('hidden');
         this.player.reset();
         this.state = 'PLAYING';
     }
@@ -868,12 +870,20 @@ export class Game {
         const mins = Math.floor(this.timer / 60).toString().padStart(2, '0');
         const secs = (this.timer % 60).toString().padStart(2, '0');
         
-        document.getElementById('winTime')?.textContent(`${mins}:${secs}`);
-        document.getElementById('winDeaths')?.textContent = this.deaths;
-        document.getElementById('winCoins')?.textContent = this.player?.coins || 0;
-        document.getElementById('winStars')?.textContent = '★'.repeat(stars);
+        const winTime = document.getElementById('winTime');
+        if (winTime) winTime.textContent = `${mins}:${secs}`;
         
-        document.getElementById('winScreen')?.classList.remove('hidden');
+        const winDeaths = document.getElementById('winDeaths');
+        if (winDeaths) winDeaths.textContent = this.deaths;
+        
+        const winCoins = document.getElementById('winCoins');
+        if (winCoins) winCoins.textContent = this.player?.coins || 0;
+        
+        const winStars = document.getElementById('winStars');
+        if (winStars) winStars.textContent = '★'.repeat(stars);
+        
+        const winScreen = document.getElementById('winScreen');
+        if (winScreen) winScreen.classList.remove('hidden');
         
         // Check achievements
         const newAchievements = this.storage.checkAchievements();
@@ -908,20 +918,25 @@ export class Game {
     pause() {
         if (this.state === 'PLAYING') {
             this.state = 'PAUSED';
-            document.getElementById('pauseMenu')?.classList.remove('hidden');
+            const pauseMenu = document.getElementById('pauseMenu');
+            if (pauseMenu) pauseMenu.classList.remove('hidden');
         }
     }
     
     resume() {
         this.state = 'PLAYING';
-        document.getElementById('pauseMenu')?.classList.add('hidden');
+        const pauseMenu = document.getElementById('pauseMenu');
+        if (pauseMenu) pauseMenu.classList.add('hidden');
         this.startTime = Date.now() - this.timer * 1000;
     }
     
     restart() {
-        document.getElementById('pauseMenu')?.classList.add('hidden');
-        document.getElementById('winScreen')?.classList.add('hidden');
-        document.getElementById('deathScreen')?.classList.add('hidden');
+        const pauseMenu = document.getElementById('pauseMenu');
+        if (pauseMenu) pauseMenu.classList.add('hidden');
+        const winScreen = document.getElementById('winScreen');
+        if (winScreen) winScreen.classList.add('hidden');
+        const deathScreen = document.getElementById('deathScreen');
+        if (deathScreen) deathScreen.classList.add('hidden');
         
         this.player.fullReset();
         this.startTime = Date.now();
@@ -940,9 +955,12 @@ export class Game {
     }
     
     exitToMenu() {
-        document.getElementById('pauseMenu')?.classList.add('hidden');
-        document.getElementById('winScreen')?.classList.add('hidden');
-        document.getElementById('deathScreen')?.classList.add('hidden');
+        const pauseMenu = document.getElementById('pauseMenu');
+        if (pauseMenu) pauseMenu.classList.add('hidden');
+        const winScreen = document.getElementById('winScreen');
+        if (winScreen) winScreen.classList.add('hidden');
+        const deathScreen = document.getElementById('deathScreen');
+        if (deathScreen) deathScreen.classList.add('hidden');
         
         this.state = 'MENU';
         this.showScreen('mainMenu');
