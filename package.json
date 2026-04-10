@@ -1,0 +1,38 @@
+{
+  "name": "platformer-pro",
+  "version": "2.0.0",
+  "description": "Advanced 2D Platformer with 100 Campaign Stages, AI Bot Rating System, and Global Map Sharing",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'No build step required - pure HTML/JS/CSS'",
+    "test": "echo 'No tests yet'"
+  },
+  "keywords": [
+    "platformer",
+    "game",
+    "html5",
+    "canvas",
+    "javascript",
+    "2d",
+    "ai-bot",
+    "level-editor",
+    "indie-game"
+  ],
+  "author": "Platformer Pro Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/platformer-pro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/platformer-pro/issues"
+  },
+  "homepage": "https://yourusername.github.io/platformer-pro",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "serve": "^14.0.0"
+  }
+}

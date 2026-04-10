@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platformer Pro - Advanced 2D Platformer</title>
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+</head>
+<body>
+    <!-- Main Menu -->
+    <div id="mainMenu" class="screen active">
+        <div class="menu-container">
+            <div class="logo">
+                <h1>🏃 PLATFORMER PRO</h1>
+                <p class="subtitle">100 Stages • Bot AI • Global Maps</p>
+            </div>
+            
+            <div class="user-section">
+                <div class="user-avatar">👤</div>
+                <span id="usernameDisplay">Guest</span>
+            </div>
+            
+            <nav class="main-nav">
+                <button id="btnCampaign" class="btn btn-primary">
+                    <span class="icon">🏆</span>
+                    <span>Campaign (100 Stages)</span>
+                </button>
+                <button id="btnGlobalMaps" class="btn btn-secondary">
+                    <span class="icon">🌍</span>
+                    <span>Global Maps</span>
+                </button>
+                <button id="btnMapEditor" class="btn btn-secondary">
+                    <span class="icon">🛠️</span>
+                    <span>Map Editor</span>
+                </button>
+                <button id="btnMyMaps" class="btn btn-secondary">
+                    <span class="icon">📁</span>
+                    <span>My Maps</span>
+                </button>
+                <button id="btnLeaderboard" class="btn btn-secondary">
+                    <span class="icon">🏅</span>
+                    <span>Leaderboard</span>
+                </button>
+            </nav>
+            
+            <div class="menu-footer">
+                <button id="btnSettings" class="btn btn-small">⚙️ Settings</button>
+                <button id="btnLoginMenu" class="btn btn-small">🔑 Login</button>
+                <button id="btnRegisterMenu" class="btn btn-small">📝 Register</button>
+                <button id="btnLogout" class="btn btn-small hidden">🚪 Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen">
+        <div class="menu-container auth-container">
+            <h2>🔑 Login</h2>
+            <div class="form-group">
+                <input type="text" id="loginUsername" placeholder="Username" maxlength="20">
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Password">
+            </div>
+            <div class="form-actions">
+                <button id="btnLoginSubmit" class="btn btn-primary">Login</button>
+                <button id="btnAuthBack" class="btn btn-back">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Screen -->
+    <div id="registerScreen" class="screen">
+        <div class="menu-container auth-container">
+            <h2>📝 Register</h2>
+            <div class="form-group">
+                <input type="text" id="registerUsername" placeholder="Username" maxlength="20">
+            </div>
+            <div class="form-group">
+                <input type="password" id="registerPassword" placeholder="Password (min 4 chars)">
+            </div>
+            <div class="form-group">
+                <input type="email" id="registerEmail" placeholder="Email (optional)">
+            </div>
+            <div class="form-actions">
+                <button id="btnRegisterSubmit" class="btn btn-primary">Create Account</button>
+                <button id="btnAuthBack" class="btn btn-back">Back</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Campaign Screen -->
+    <div id="campaignScreen" class="screen">
+        <div class="menu-container wide">
+            <div class="screen-header">
+                <button id="btnCampaignBack" class="btn btn-back">← Back</button>
+                <h2>🏆 Campaign Mode</h2>
+            </div>
+            
+            <div class="campaign-stats">
+                <div class="stat-box">
+                    <span class="stat-label">Current Stage</span>
+                    <span id="currentStageDisplay" class="stat-value">1</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Completed</span>
+                    <span id="stagesCompleted" class="stat-value">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Total Stars</span>
+                    <span id="totalStars" class="stat-value">0</span>
+                </div>
+            </div>
+            
+            <div class="stage-selector">
+                <button id="btnPrevStage" class="btn btn-nav" disabled>←</button>
+                <div class="stage-preview">
+                    <span class="stage-number">Stage <span id="currentStage">1</span></span>
+                    <span class="stage-world">World 1: Beginner</span>
+                </div>
+                <button id="btnNextStage" class="btn btn-nav" disabled>→</button>
+            </div>
+            
+            <button id="btnPlayStage" class="btn btn-play">▶ Play Stage</button>
+        </div>
+    </div>
+
+    <!-- Global Maps Screen -->
+    <div id="globalMapsScreen" class="screen">
+        <div class="menu-container wide">
+            <div class="screen-header">
+                <button id="btnGlobalBack" class="btn btn-back">← Back</button>
+                <h2>🌍 Global Maps</h2>
+            </div>
+            
+            <div class="filters">
+                <input type="text" id="globalSearch" placeholder="🔍 Search maps...">
+                <select id="globalFilter">
+                    <option value="all">All Difficulties</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                    <option value="expert">Expert</option>
+                </select>
+                <select id="minRating">
+                    <option value="0">Any Rating</option>
+                    <option value="8">8+ Stars</option>
+                    <option value="9">9+ Stars</option>
+                </select>
+                <select id="globalSort">
+                    <option value="newest">Newest</option>
+                    <option value="popular">Most Popular</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="plays">Most Played</option>
+                </select>
+            </div>
+            
+            <div id="globalMapsList" class="maps-grid">
+                <!-- Maps loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Editor Screen -->
+    <div id="editorScreen" class="screen">
+        <div class="editor-layout">
+            <div class="editor-toolbar">
+                <div class="toolbar-section">
+                    <h3>🛠️ Map Editor</h3>
+                </div>
+                
+                <div class="toolbar-section tools">
+                    <span class="toolbar-label">Tools:</span>
+                    <button class="tool-btn active" data-tool="1" title="Ground">🟫</button>
+                    <button class="tool-btn" data-tool="2" title="Platform">🟨</button>
+                    <button class="tool-btn" data-tool="3" title="Spike">🔺</button>
+                    <button class="tool-btn" data-tool="4" title="Goal">🚩</button>
+                    <button class="tool-btn" data-tool="5" title="Coin">🪙</button>
+                    <button class="tool-btn" data-tool="6" title="Checkpoint">🚩</button>
+                    <button class="tool-btn" data-tool="7" title="Spawn">👤</button>
+                    <button class="tool-btn" data-tool="10" title="Jump Pad">⬆️</button>
+                    <button class="tool-btn" data-tool="14" title="Bounce">⏫</button>
+                    <button class="tool-btn" data-tool="11" title="Push">↔️</button>
+                    <button class="tool-btn" data-tool="12" title="Speed">⚡</button>
+                    <button class="tool-btn" data-tool="13" title="Ice">🧊</button>
+                    <button class="tool-btn" data-tool="15" title="Teleport In">🔵</button>
+                    <button class="tool-btn" data-tool="16" title="Teleport Out">🟣</button>
+                    <button class="tool-btn" data-tool="17" title="Crumble">🏚️</button>
+                    <button class="tool-btn" data-tool="18" title="Gravity">🔄</button>
+                    <button class="tool-btn" data-tool="19" title="Wind Up">💨</button>
+                    <button class="tool-btn" data-tool="21" title="Laser">🔴</button>
+                    <button class="tool-btn" data-tool="23" title="Key">🗝️</button>
+                    <button class="tool-btn" data-tool="24" title="Door">🚪</button>
+                    <button class="tool-btn" data-tool="25" title="Button">🔘</button>
+                    <button class="tool-btn" data-tool="0" title="Erase">❌</button>
+                </div>
+                
+                <div class="toolbar-section actions">
+                    <span class="toolbar-label">Actions:</span>
+                    <button id="btnClearMap" class="btn-small">Clear</button>
+                    <button id="btnResizeMap" class="btn-small">Resize</button>
+                    <button id="btnTestMap" class="btn-small btn-primary">Test</button>
+                    <button id="btnVerifyMap" class="btn-small btn-warning">🤖 Verify</button>
+                    <button id="btnSaveMap" class="btn-small btn-success">Save</button>
+                </div>
+                
+                <div class="toolbar-section info">
+                    <span id="editorCoords">X: 0, Y: 0</span>
+                    <span id="editorTile">Tile: Empty</span>
+                </div>
+                
+                <button id="btnEditorBack" class="btn btn-back">Exit</button>
+            </div>
+            
+            <div class="editor-canvas-container">
+                <canvas id="editorCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bot Verification Screen -->
+    <div id="botVerificationScreen" class="screen">
+        <div class="menu-container">
+            <h2>🤖 Bot Verification</h2>
+            <p class="verify-desc">The AI bot will attempt to complete your map to verify it's possible.</p>
+            
+            <div class="bot-status">
+                <div id="botStatus" class="status-text">Initializing...</div>
+                <div class="progress-bar">
+                    <div id="botProgress" class="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div id="botResult" class="bot-result">
+                <!-- Result shown here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- My Maps Screen -->
+    <div id="myMapsScreen" class="screen">
+        <div class="menu-container wide">
+            <div class="screen-header">
+                <button id="btnMyMapsBack" class="btn btn-back" onclick="game.showScreen('mainMenu')">← Back</button>
+                <h2>📁 My Maps</h2>
+            </div>
+            
+            <div id="myMapsList" class="maps-grid">
+                <!-- User's maps loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="leaderboardScreen" class="screen">
+        <div class="menu-container wide">
+            <div class="screen-header">
+                <button id="btnLeaderboardBack" class="btn btn-back" onclick="game.showScreen('mainMenu')">← Back</button>
+                <h2>🏅 Leaderboard</h2>
+            </div>
+            
+            <div id="leaderboardList" class="leaderboard">
+                <!-- Leaderboard loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settingsScreen" class="screen">
+        <div class="menu-container">
+            <h2>⚙️ Settings</h2>
+            
+            <div class="settings-group">
+                <label class="setting-item">
+                    <span>Sound Enabled</span>
+                    <input type="checkbox" id="soundEnabled" checked>
+                </label>
+                <label class="setting-item">
+                    <span>Volume</span>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50">
+                </label>
+                <label class="setting-item">
+                    <span>Show FPS</span>
+                    <input type="checkbox" id="showFps">
+                </label>
+            </div>
+            
+            <button id="btnSettingsBack" class="btn btn-back" onclick="game.saveSettings(); game.showScreen('mainMenu')">Save & Back</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <canvas id="gameCanvas"></canvas>
+        
+        <div class="game-ui">
+            <div class="hud">
+                <span id="hudTime">Time: 00:00</span>
+                <span id="hudCoins">Coins: 0</span>
+                <span id="hudDeaths">Deaths: 0</span>
+            </div>
+            <div id="fpsCounter" class="fps-counter">60 FPS</div>
+            <button id="btnPause" class="btn-pause">⏸</button>
+        </div>
+        
+        <div class="controls-hint">
+            <span>A/D or ←/→ Move</span>
+            <span>W/Space Jump</span>
+            <span>Shift Sprint</span>
+            <span>ESC Pause</span>
+            <span>R Restart</span>
+        </div>
+        
+        <!-- Pause Menu -->
+        <div id="pauseMenu" class="overlay hidden">
+            <div class="overlay-content">
+                <h2>⏸ Paused</h2>
+                <button id="btnResume" class="btn btn-primary">Resume</button>
+                <button id="btnRestart" class="btn">Restart</button>
+                <button id="btnExit" class="btn btn-back">Exit to Menu</button>
+            </div>
+        </div>
+        
+        <!-- Death Screen -->
+        <div id="deathScreen" class="overlay hidden">
+            <div class="overlay-content">
+                <h2>💀 You Died!</h2>
+                <button id="btnRespawn" class="btn btn-primary">Respawn</button>
+                <button id="btnExit" class="btn btn-back">Exit to Menu</button>
+            </div>
+        </div>
+        
+        <!-- Win Screen -->
+        <div id="winScreen" class="overlay hidden">
+            <div class="overlay-content">
+                <h2>🎉 Level Complete!</h2>
+                <div class="win-stats">
+                    <div class="stat">
+                        <span class="stat-label">Time:</span>
+                        <span id="winTime" class="stat-value">00:00</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Deaths:</span>
+                        <span id="winDeaths" class="stat-value">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Coins:</span>
+                        <span id="winCoins" class="stat-value">0</span>
+                    </div>
+                    <div class="stars">
+                        <span id="winStars" class="stars-display">★★★</span>
+                    </div>
+                </div>
+                <button id="btnNextLevel" class="btn btn-primary">Next Level →</button>
+                <button id="btnWinRestart" class="btn">Play Again</button>
+                <button id="btnExit" class="btn btn-back">Exit to Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="src/js/game.js"></script>
+</body>
+</html>
